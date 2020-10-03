@@ -1,0 +1,10 @@
+.timer {
+    float: right;
+}
+.highscore {
+    float: left;
+}
+.quiz {
+    text-align: center;
+    padding: 125px;
+}
