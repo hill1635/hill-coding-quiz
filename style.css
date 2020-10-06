@@ -8,3 +8,6 @@
     text-align: center;
     padding: 125px;
 }
+#answer {
+    display: block;
+}

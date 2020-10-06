@@ -23,6 +23,7 @@ startQuizBtn.addEventListener("click", function countdown() {
         startTime--;
         timer.textContent = "Time: " + startTime;
         if (startTime == 0) {
+            listEl.remove()
             clearInterval(timeDecrease);
             enterScore();
         }
@@ -32,13 +33,13 @@ startQuizBtn.addEventListener("click", function countdown() {
 
 function startQuiz() {
     contentEl.textContent = "";
-    main.children[1].append(listEl);
-    main.children[1].children[0].append(btn1);
-    main.children[1].children[0].append(btn2);
-    main.children[1].children[0].append(btn3);
-    main.children[1].children[0].append(btn4);
-    randQuest();
     startQuizBtn.remove();
+    main.append(listEl);
+    main.children[1].append(btn1);
+    main.children[1].append(btn2);
+    main.children[1].append(btn3);
+    main.children[1].append(btn4);
+    randQuest();
 }
 
 //Order doesn't matter right now
@@ -99,13 +100,20 @@ function randQuest() {
     btn4.textContent = randomIndex.wrong3;
 }
 
-//NEXT QUESTION
-document.addEventListener("click", function nextQuest(btn1, btn2, btn3, btn4) {
-    randQuest();
-});
-
+//NEXT QUESTION AFTER CLICKING BUTTONS, LOGS SCORE
+var score = 0;
+for (i = 0; i < answerList.length; i++) {
+    answerList[i].addEventListener("click", function nextQuest() {
+        randQuest();
+    });
+}
+btn1.onclick = function () {
+    score++;
+    console.log(score);
+}
 //ENTER SCORE PAGE
-//"Works", need layout and everything adjusted.
+//Reinstate contentEl element, need layout and everything adjusted.
+//Event delegation to add high scores
 function enterScore() {
     h1El.textContent = "All done!";
     contentEl.textContent = "Your final score is:";
@@ -119,7 +127,7 @@ function enterScore() {
 }
 
 //HIGH SCORE PAGE
-//Links correctly
+//Reinstate contentEl element.
 var highScore = document.querySelector(".highScorePage");
 highScore.addEventListener("click", function viewPage() {
     h1El.textContent = "High Scores";
