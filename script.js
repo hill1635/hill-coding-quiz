@@ -22,31 +22,37 @@ startQuizBtn.addEventListener("click", function countdown() {
     var timeDecrease = setInterval(function () {
         startTime--;
         timer.textContent = "Time: " + startTime;
-        startQuiz();
         if (startTime == 0) {
             clearInterval(timeDecrease);
             enterScore();
         }
     }, 1000);
+    startQuiz();
 });
 
 function startQuiz() {
     contentEl.textContent = "";
     main.children[1].append(listEl);
-    main.children[1].children[0].append(li1);
-    main.children[1].children[0].append(li2);
-    main.children[1].children[0].append(li3);
-    main.children[1].children[0].append(li4);
+    main.children[1].children[0].append(btn1);
+    main.children[1].children[0].append(btn2);
+    main.children[1].children[0].append(btn3);
+    main.children[1].children[0].append(btn4);
     randQuest();
     startQuizBtn.remove();
 }
 
-//Order doesn't matter
+//Order doesn't matter right now
 var listEl = document.createElement("ul");
-var li1 = document.createElement("li");
-var li2 = document.createElement("li");
-var li3 = document.createElement("li");
-var li4 = document.createElement("li");
+var btn1 = document.createElement("button");
+var btn2 = document.createElement("button");
+var btn3 = document.createElement("button");
+var btn4 = document.createElement("button");
+
+btn1.setAttribute("id", "answer");
+btn2.setAttribute("id", "answer");
+btn3.setAttribute("id", "answer");
+btn4.setAttribute("id", "answer");
+var answerList = [btn1, btn2, btn3, btn4];
 //Below not working.
 listEl.setAttribute("style", "");
 
@@ -82,23 +88,24 @@ var q4 = {
     wrong2: "Curly Brackets",
     wrong3: "Parentheses"
 };
-
 var questions = [q1, q2, q3, q4];
-//For loop to go through Q's
-var randomIndex = questions[Math.floor(Math.random() * questions.length)];
-//Put in randomizing functions
+
 function randQuest() {
+    var randomIndex = questions[Math.floor(Math.random() * questions.length)];
     h1El.textContent = randomIndex.quest;
-    li1.textContent = randomIndex.correct;
-    li2.textContent = randomIndex.wrong1;
-    li3.textContent = randomIndex.wrong2;
-    li4.textContent = randomIndex.wrong3;
+    btn1.textContent = randomIndex.correct;
+    btn2.textContent = randomIndex.wrong1;
+    btn3.textContent = randomIndex.wrong2;
+    btn4.textContent = randomIndex.wrong3;
 }
 
 //NEXT QUESTION
+document.addEventListener("click", function nextQuest(btn1, btn2, btn3, btn4) {
+    randQuest();
+});
 
 //ENTER SCORE PAGE
-//"Works", need layout adjusted.
+//"Works", need layout and everything adjusted.
 function enterScore() {
     h1El.textContent = "All done!";
     contentEl.textContent = "Your final score is:";
@@ -110,3 +117,12 @@ function enterScore() {
     main.children[1].append(submitBtn);
     submitBtn.textContent = "Submit";
 }
+
+//HIGH SCORE PAGE
+//Links correctly
+var highScore = document.querySelector(".highScorePage");
+highScore.addEventListener("click", function viewPage() {
+    h1El.textContent = "High Scores";
+    contentEl.textContent = "Here are the high scores.";
+    startQuizBtn.remove();
+});
