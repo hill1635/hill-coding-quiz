@@ -34,7 +34,8 @@ function mainScreen() {
     main.append(startQuizBtn);
     h1El.textContent = "Coding Quiz Challenge";
     contentEl.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score by ten seconds!";
-    startQuizBtn.textContent = "Start Quiz";
+    startQuizBtn.textContent = "<Start Quiz>";
+    startQuizBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
     highScore.textContent = "view-high-scores.html";
 }
 mainScreen();
@@ -43,7 +44,7 @@ mainScreen();
 startQuizBtn.addEventListener("click", function countdown() {
     var timeDecrease = setInterval(function () {
         startTime--;
-        timer.textContent = "Time: " + startTime;
+        timer.textContent = "timer.js: " + startTime;
         if (startTime == 0) {
             listEl.remove()
             clearInterval(timeDecrease);
@@ -67,7 +68,7 @@ function randQuest() {
     btn2.textContent = randomIndex.wrong1;
     btn3.textContent = randomIndex.wrong2;
     btn4.textContent = randomIndex.wrong3;
-//For loop to populate button answers, how to randomize?
+    //For loop to populate button answers, how to randomize?
     for (i = 0; i < answerList.length; i++) {
         main.children[1].append(answerList[i]);
     }
@@ -83,25 +84,42 @@ btn1.onclick = function () {
     score++;
     console.log(score);
 }
+for (i = 1; i < answerList.length; i++) {
+    answerList[i].onclick = function () {
+        startTime = startTime - 10;
+    }
+}
+//How to change text color onclick?
+// //answerList.onclick = function() {
+//     answerList.setAttribute("style", "color: rgb(86 156 214);")
+// }
 //ENTER SCORE PAGE
-//Need layout and everything adjusted.
+//finalScore and contentEl need to be on same line
 //Event delegation to add high scores
 function enterScore() {
-    h1El.textContent = "All done!";
-    contentEl.textContent = "Your final score is: ";
-    finalScore.textContent = score;
-    submitBtn.textContent = "Submit";
+    var scoreDiv = document.createElement("div");
+    var submitDiv = document.createElement("div");
 
-    main.children[1].append(finalScore);
-    main.children[1].append(initInput);
-    main.children[1].append(submitBtn);
+    h1El.textContent = "All done!";
+    contentEl.textContent = "yourFinalScore = ";
+    contentEl.setAttribute("style", "color: rgb(156 220 254);");
+    finalScore.textContent = score;
+    finalScore.setAttribute("style", "font-weight: bold; color: rgb(181 206 168);");
+    submitBtn.textContent = "<Submit>";
+    submitBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
+
+    main.children[1].append(scoreDiv);
+    main.children[1].append(submitDiv);
+    main.children[1].children[0].append(finalScore);
+    main.children[1].children[1].append(initInput);
+    main.children[1].children[1].append(submitBtn);
 }
 
 //HIGH SCORE PAGE
 //Event delegation to add high scores, timer still there
 highScore.addEventListener("click", function scorePage() {
     h1El.textContent = "High Scores";
-    highScore.textContent = "Take the test!";
+    highScore.textContent = "take-the-test.html";
     highScore.onclick = function () {
         mainScreen();
     };
