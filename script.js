@@ -7,6 +7,9 @@ var h1El = document.createElement("h1");
 var contentEl = document.createElement("p");
 var startQuizBtn = document.createElement("button");
 
+main.append(h1El);
+main.append(contentEl);
+
 var listEl = document.createElement("ul");
 var btn1 = document.createElement("button");
 var btn2 = document.createElement("button");
@@ -19,20 +22,20 @@ btn2.setAttribute("id", "answer");
 btn3.setAttribute("id", "answer");
 btn4.setAttribute("id", "answer");
 
+var finalScore = document.createElement("span");
+var initInput = document.createElement("input");
+var submitBtn = document.createElement("button");
+
 var startTime = 60;
 var score = 0;
 
 //HOMEPAGE LAYOUT
 function mainScreen() {
-    main.setAttribute("style", "text-align:center;");
+    main.append(startQuizBtn);
     h1El.textContent = "Coding Quiz Challenge";
     contentEl.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score by ten seconds!";
     startQuizBtn.textContent = "Start Quiz";
-    highScore.textContent = "View High Scores";
-
-    main.append(h1El);
-    main.append(contentEl);
-    main.append(startQuizBtn);
+    highScore.textContent = "view-high-scores.html";
 }
 mainScreen();
 
@@ -54,10 +57,6 @@ function startQuiz() {
     contentEl.textContent = "";
     startQuizBtn.remove();
     main.append(listEl);
-//For loop to populate buttons
-    for (i = 0; i < answerList.length; i++) {
-        main.children[1].append(answerList[i]);
-    }
     randQuest();
 }
 
@@ -68,6 +67,10 @@ function randQuest() {
     btn2.textContent = randomIndex.wrong1;
     btn3.textContent = randomIndex.wrong2;
     btn4.textContent = randomIndex.wrong3;
+//For loop to populate button answers, how to randomize?
+    for (i = 0; i < answerList.length; i++) {
+        main.children[1].append(answerList[i]);
+    }
 }
 
 //NEXT QUESTION AFTER CLICKING BUTTONS, LOGS SCORE
@@ -81,25 +84,21 @@ btn1.onclick = function () {
     console.log(score);
 }
 //ENTER SCORE PAGE
-//Reinstate contentEl element, need layout and everything adjusted.
+//Need layout and everything adjusted.
 //Event delegation to add high scores
 function enterScore() {
     h1El.textContent = "All done!";
     contentEl.textContent = "Your final score is: ";
-    var finalScore = document.createElement("span");
-    main.children[1].append(finalScore);
     finalScore.textContent = score;
-
-    var initInput = document.createElement("input");
-    main.children[1].append(initInput);
-
-    var submitBtn = document.createElement("button");
-    main.children[1].append(submitBtn);
     submitBtn.textContent = "Submit";
+
+    main.children[1].append(finalScore);
+    main.children[1].append(initInput);
+    main.children[1].append(submitBtn);
 }
 
 //HIGH SCORE PAGE
-//Reinstate contentEl element.
+//Event delegation to add high scores, timer still there
 highScore.addEventListener("click", function scorePage() {
     h1El.textContent = "High Scores";
     highScore.textContent = "Take the test!";

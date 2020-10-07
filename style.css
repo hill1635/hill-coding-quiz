@@ -1,13 +1,58 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    height: 100%;
+    color: white;
+    background: rgb(51 51 51);
+}
+
 .timer {
     float: right;
 }
+
 .highscore {
     float: left;
 }
-.main {
-    text-align: center;
-    padding: 125px;
+
+h1 {
+    color: rgb(235, 160, 86)
 }
+
+button {
+    background-color: rgb(30 30 30);
+    color: white;
+    border: solid;
+    border-color: rgb(30 30 30);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    margin: 10px;
+    box-shadow: 0px;
+}
+
+button:hover {
+    color: rgb(156 220 254);
+    text-decoration-line: underline;
+    cursor: text;
+}
+
+.header {
+    background-color: rgb(30 30 30);
+    padding: 15px;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main {
+    background-color: rgb(30 30 30);
+    padding: 125px;
+    margin: 50px 100px 50px 100px;
+}
+
 #answer {
     display: block;
+}
+a:hover {
+    cursor: pointer;
+}
+h1:hover, p:hover {
+    cursor: default;
 }
