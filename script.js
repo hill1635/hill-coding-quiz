@@ -1,18 +1,23 @@
 //HOMEPAGE LAYOUT
 var body = document.body;
 var main = body.children[1];
+var highScore = document.querySelector(".highScorePage");
 var h1El = document.createElement("h1");
 var contentEl = document.createElement("p");
 var startQuizBtn = document.createElement("button");
 
-main.setAttribute("style", "text-align:center;");
-h1El.textContent = "Coding Quiz Challenge";
-contentEl.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score by ten seconds!";
-startQuizBtn.textContent = "Start Quiz";
+function mainScreen() {
+    main.setAttribute("style", "text-align:center;");
+    h1El.textContent = "Coding Quiz Challenge";
+    contentEl.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score by ten seconds!";
+    startQuizBtn.textContent = "Start Quiz";
+    highScore.textContent = "View High Scores";
 
-main.append(h1El);
-main.append(contentEl);
-main.append(startQuizBtn);
+    main.append(h1El);
+    main.append(contentEl);
+    main.append(startQuizBtn);
+}
+mainScreen();
 
 //BUTTONS AND TIMERS
 var timer = document.querySelector(".timer");
@@ -128,9 +133,12 @@ function enterScore() {
 
 //HIGH SCORE PAGE
 //Reinstate contentEl element.
-var highScore = document.querySelector(".highScorePage");
-highScore.addEventListener("click", function viewPage() {
+highScore.addEventListener("click", function scorePage() {
     h1El.textContent = "High Scores";
+    highScore.textContent = "Take the test!";
+    highScore.onclick = function () {
+        mainScreen();
+    };
     contentEl.textContent = "Here are the high scores.";
     startQuizBtn.remove();
 });
