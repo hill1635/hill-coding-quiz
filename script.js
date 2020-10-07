@@ -1,11 +1,28 @@
-//HOMEPAGE LAYOUT
+//VARIABLES
 var body = document.body;
 var main = body.children[1];
 var highScore = document.querySelector(".highScorePage");
+var timer = document.querySelector(".timer");
 var h1El = document.createElement("h1");
 var contentEl = document.createElement("p");
 var startQuizBtn = document.createElement("button");
 
+var listEl = document.createElement("ul");
+var btn1 = document.createElement("button");
+var btn2 = document.createElement("button");
+var btn3 = document.createElement("button");
+var btn4 = document.createElement("button");
+var answerList = [btn1, btn2, btn3, btn4];
+
+btn1.setAttribute("id", "answer");
+btn2.setAttribute("id", "answer");
+btn3.setAttribute("id", "answer");
+btn4.setAttribute("id", "answer");
+
+var startTime = 60;
+var score = 0;
+
+//HOMEPAGE LAYOUT
 function mainScreen() {
     main.setAttribute("style", "text-align:center;");
     h1El.textContent = "Coding Quiz Challenge";
@@ -20,9 +37,6 @@ function mainScreen() {
 mainScreen();
 
 //BUTTONS AND TIMERS
-var timer = document.querySelector(".timer");
-var startTime = 60;
-
 startQuizBtn.addEventListener("click", function countdown() {
     var timeDecrease = setInterval(function () {
         startTime--;
@@ -40,28 +54,61 @@ function startQuiz() {
     contentEl.textContent = "";
     startQuizBtn.remove();
     main.append(listEl);
-    main.children[1].append(btn1);
-    main.children[1].append(btn2);
-    main.children[1].append(btn3);
-    main.children[1].append(btn4);
+//For loop to populate buttons
+    for (i = 0; i < answerList.length; i++) {
+        main.children[1].append(answerList[i]);
+    }
     randQuest();
 }
 
-//Order doesn't matter right now
-var listEl = document.createElement("ul");
-var btn1 = document.createElement("button");
-var btn2 = document.createElement("button");
-var btn3 = document.createElement("button");
-var btn4 = document.createElement("button");
+function randQuest() {
+    var randomIndex = questions[Math.floor(Math.random() * questions.length)];
+    h1El.textContent = randomIndex.quest;
+    btn1.textContent = randomIndex.correct;
+    btn2.textContent = randomIndex.wrong1;
+    btn3.textContent = randomIndex.wrong2;
+    btn4.textContent = randomIndex.wrong3;
+}
 
-btn1.setAttribute("id", "answer");
-btn2.setAttribute("id", "answer");
-btn3.setAttribute("id", "answer");
-btn4.setAttribute("id", "answer");
-var answerList = [btn1, btn2, btn3, btn4];
-//Below not working.
-listEl.setAttribute("style", "");
+//NEXT QUESTION AFTER CLICKING BUTTONS, LOGS SCORE
+for (i = 0; i < answerList.length; i++) {
+    answerList[i].addEventListener("click", function nextQuest() {
+        randQuest();
+    });
+}
+btn1.onclick = function () {
+    score++;
+    console.log(score);
+}
+//ENTER SCORE PAGE
+//Reinstate contentEl element, need layout and everything adjusted.
+//Event delegation to add high scores
+function enterScore() {
+    h1El.textContent = "All done!";
+    contentEl.textContent = "Your final score is: ";
+    var finalScore = document.createElement("span");
+    main.children[1].append(finalScore);
+    finalScore.textContent = score;
 
+    var initInput = document.createElement("input");
+    main.children[1].append(initInput);
+
+    var submitBtn = document.createElement("button");
+    main.children[1].append(submitBtn);
+    submitBtn.textContent = "Submit";
+}
+
+//HIGH SCORE PAGE
+//Reinstate contentEl element.
+highScore.addEventListener("click", function scorePage() {
+    h1El.textContent = "High Scores";
+    highScore.textContent = "Take the test!";
+    highScore.onclick = function () {
+        mainScreen();
+    };
+    contentEl.textContent = "Here are the high scores.";
+    startQuizBtn.remove();
+});
 
 //QUIZ QUESTIONS AND STUFF
 var q1 = {
@@ -95,50 +142,3 @@ var q4 = {
     wrong3: "Parentheses"
 };
 var questions = [q1, q2, q3, q4];
-
-function randQuest() {
-    var randomIndex = questions[Math.floor(Math.random() * questions.length)];
-    h1El.textContent = randomIndex.quest;
-    btn1.textContent = randomIndex.correct;
-    btn2.textContent = randomIndex.wrong1;
-    btn3.textContent = randomIndex.wrong2;
-    btn4.textContent = randomIndex.wrong3;
-}
-
-//NEXT QUESTION AFTER CLICKING BUTTONS, LOGS SCORE
-var score = 0;
-for (i = 0; i < answerList.length; i++) {
-    answerList[i].addEventListener("click", function nextQuest() {
-        randQuest();
-    });
-}
-btn1.onclick = function () {
-    score++;
-    console.log(score);
-}
-//ENTER SCORE PAGE
-//Reinstate contentEl element, need layout and everything adjusted.
-//Event delegation to add high scores
-function enterScore() {
-    h1El.textContent = "All done!";
-    contentEl.textContent = "Your final score is:";
-
-    var initInput = document.createElement("input");
-    main.children[1].append(initInput);
-
-    var submitBtn = document.createElement("button");
-    main.children[1].append(submitBtn);
-    submitBtn.textContent = "Submit";
-}
-
-//HIGH SCORE PAGE
-//Reinstate contentEl element.
-highScore.addEventListener("click", function scorePage() {
-    h1El.textContent = "High Scores";
-    highScore.textContent = "Take the test!";
-    highScore.onclick = function () {
-        mainScreen();
-    };
-    contentEl.textContent = "Here are the high scores.";
-    startQuizBtn.remove();
-});
