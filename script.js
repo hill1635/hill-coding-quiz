@@ -42,7 +42,7 @@ function mainScreen() {
 mainScreen();
 
 //BUTTONS AND TIMERS
-startQuizBtn.addEventListener("click", function countdown() {
+function countdown() {
     var timeDecrease = setInterval(function () {
         startTime--;
         timer.textContent = "timer.js: " + startTime;
@@ -53,7 +53,7 @@ startQuizBtn.addEventListener("click", function countdown() {
         }
     }, 1000);
     startQuiz();
-});
+}
 
 function startQuiz() {
     contentEl.textContent = "";
@@ -74,23 +74,6 @@ function randQuest() {
     //For loop to populate button answers, how to randomize?
     for (i = 0; i < answerList.length; i++) {
         main.children[1].append(answerList[i]);
-    }
-}
-
-//NEXT QUESTION AFTER CLICKING BUTTONS, LOGS SCORE
-for (i = 0; i < answerList.length; i++) {
-    answerList[i].addEventListener("click", function nextQuest() {
-        questCount++;
-        randQuest();
-    });
-}
-btn1.onclick = function () {
-    score++;
-    console.log(score);
-}
-for (i = 1; i < answerList.length; i++) {
-    answerList[i].onclick = function () {
-        startTime = startTime - 10;
     }
 }
 
@@ -118,7 +101,7 @@ function enterScore() {
     main.children[1].children[1].append(submitBtn);
 }
 
-submitBtn.addEventListener("click", function addScore() {
+function addScore() {
     var scoreDisplay = {
         name: initInput.value,
         final: score
@@ -128,7 +111,7 @@ submitBtn.addEventListener("click", function addScore() {
     console.log(scoresArray);
     scorePage();
     renderScore();
-});
+}
 
 //SAVING SCORES
 //Stores but need to convert from object 
@@ -146,18 +129,39 @@ function renderScore() {
 
 //HIGH SCORE PAGE
 //Event delegation to retrieve scoresArray
-highScoreLink.addEventListener("click", scorePage);
-
 function scorePage() {
-    h1El.textContent = "High Scores";
     highScoreLink.textContent = "take-the-test.html";
-    highScoreLink.onclick = function () {
-        mainScreen();
-    };
+    highScoreLink.onclick = mainScreen;
+    
+    h1El.textContent = "High Scores";
     contentEl.textContent = "";
+
     var highScoreList = document.createElement("ul");
     main.append(highScoreList);
     startQuizBtn.remove();
+}
+
+//EVENT LISTENERS
+startQuizBtn.addEventListener("click", countdown);
+submitBtn.addEventListener("click", addScore);
+highScoreLink.addEventListener("click", scorePage);
+
+for (i = 0; i < answerList.length; i++) {
+    answerList[i].addEventListener("click", function nextQuest() {
+        questCount++;
+        randQuest();
+    });
+}
+
+btn1.onclick = function () {
+    score++;
+    console.log(score);
+}
+
+for (i = 1; i < answerList.length; i++) {
+    answerList[i].onclick = function () {
+        startTime = startTime - 10;
+    }
 }
 
 //QUIZ QUESTIONS AND STUFF
