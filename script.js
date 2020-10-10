@@ -1,7 +1,7 @@
 //VARIABLES
 var body = document.body;
 var main = body.children[1];
-var highScore = document.querySelector(".highScorePage");
+var highScoreLink = document.querySelector(".highScorePage");
 var timer = document.querySelector(".timer");
 var h1El = document.createElement("h1");
 var contentEl = document.createElement("p");
@@ -37,7 +37,7 @@ function mainScreen() {
     contentEl.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score by ten seconds!";
     startQuizBtn.textContent = "<Start Quiz>";
     startQuizBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
-    highScore.textContent = "view-high-scores.html";
+    highScoreLink.textContent = "view-high-scores.html";
 }
 mainScreen();
 
@@ -62,7 +62,9 @@ function startQuiz() {
     randQuest();
 }
 
+//Maybe repeats questions?
 function randQuest() {
+
     var randomIndex = questions[Math.floor(Math.random() * questions.length)];
     h1El.textContent = randomIndex.quest;
     btn1.textContent = randomIndex.correct;
@@ -91,10 +93,7 @@ for (i = 1; i < answerList.length; i++) {
         startTime = startTime - 10;
     }
 }
-//How to change text color onclick?
-// //answerList.onclick = function() {
-//     answerList.setAttribute("style", "color: rgb(86 156 214);")
-// }
+
 //ENTER SCORE PAGE
 //finalScore and contentEl need to be on same line
 //Event delegation to add high scores
@@ -119,17 +118,47 @@ function enterScore() {
     main.children[1].children[1].append(submitBtn);
 }
 
+submitBtn.addEventListener("click", function addScore() {
+    var scoreDisplay = {
+        name: initInput.value,
+        final: score
+    };
+    console.log(scoreDisplay);
+    scoresArray.push(scoreDisplay);
+    console.log(scoresArray);
+    scorePage();
+    renderScore();
+});
+
+//SAVING SCORES
+//Stores but need to convert from object 
+var scoresArray = [];
+
+//Renders score list
+function renderScore() {
+    for (var i = 0; i < scoresArray.length; i++) {
+        var highScoreListEL = document.createElement("li");
+        main.children[2].append(highScoreListEL);
+
+        highScoreListEL.textContent = scoresArray[i].name + " - " + scoresArray[i].final;
+    }
+}
+
 //HIGH SCORE PAGE
-//Event delegation to add high scores, timer still there
-highScore.addEventListener("click", function scorePage() {
+//Event delegation to retrieve scoresArray
+highScoreLink.addEventListener("click", scorePage);
+
+function scorePage() {
     h1El.textContent = "High Scores";
-    highScore.textContent = "take-the-test.html";
-    highScore.onclick = function () {
+    highScoreLink.textContent = "take-the-test.html";
+    highScoreLink.onclick = function () {
         mainScreen();
     };
-    contentEl.textContent = "Here are the high scores.";
+    contentEl.textContent = "";
+    var highScoreList = document.createElement("ul");
+    main.append(highScoreList);
     startQuizBtn.remove();
-});
+}
 
 //QUIZ QUESTIONS AND STUFF
 var q1 = {
