@@ -28,6 +28,7 @@ var submitBtn = document.createElement("button");
 
 var startTime = 60;
 var score = 0;
+var questCount = 0;
 
 //HOMEPAGE LAYOUT
 function mainScreen() {
@@ -45,8 +46,8 @@ startQuizBtn.addEventListener("click", function countdown() {
     var timeDecrease = setInterval(function () {
         startTime--;
         timer.textContent = "timer.js: " + startTime;
-        if (startTime == 0) {
-            listEl.remove()
+        if (startTime == 0 || questCount == questions.length) {
+            listEl.remove();
             clearInterval(timeDecrease);
             enterScore();
         }
@@ -77,6 +78,7 @@ function randQuest() {
 //NEXT QUESTION AFTER CLICKING BUTTONS, LOGS SCORE
 for (i = 0; i < answerList.length; i++) {
     answerList[i].addEventListener("click", function nextQuest() {
+        questCount++;
         randQuest();
     });
 }
@@ -102,10 +104,12 @@ function enterScore() {
 
     h1El.textContent = "All done!";
     contentEl.textContent = "yourFinalScore = ";
-    contentEl.setAttribute("style", "color: rgb(156 220 254);");
     finalScore.textContent = score;
-    finalScore.setAttribute("style", "font-weight: bold; color: rgb(181 206 168);");
     submitBtn.textContent = "<Submit>";
+
+    contentEl.setAttribute("style", "color: rgb(156 220 254);");
+    finalScore.setAttribute("style", "font-weight: bold; color: rgb(181 206 168);");
+    initInput.setAttribute("style", "background-color: rgb(51 51 51); color: white; border: solid; border-color: rgb(51 51 51)");
     submitBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
 
     main.children[1].append(scoreDiv);
