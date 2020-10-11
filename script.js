@@ -1,4 +1,3 @@
-//VARIABLES
 var body = document.body;
 var main = body.children[1];
 var highScoreLink = document.querySelector(".highScorePage");
@@ -17,11 +16,6 @@ var btn3 = document.createElement("button");
 var btn4 = document.createElement("button");
 var answerList = [btn1, btn2, btn3, btn4];
 
-btn1.setAttribute("id", "answer");
-btn2.setAttribute("id", "answer");
-btn3.setAttribute("id", "answer");
-btn4.setAttribute("id", "answer");
-
 var finalScore = document.createElement("span");
 var initInput = document.createElement("input");
 var submitBtn = document.createElement("button");
@@ -30,7 +24,6 @@ var startTime = 60;
 var score = 0;
 var questCount = 0;
 
-//HOMEPAGE LAYOUT
 function mainScreen() {
     main.append(startQuizBtn);
     h1El.textContent = "Coding Quiz Challenge";
@@ -41,7 +34,6 @@ function mainScreen() {
 }
 mainScreen();
 
-//BUTTONS AND TIMERS
 function countdown() {
     var timeDecrease = setInterval(function () {
         startTime--;
@@ -62,24 +54,19 @@ function startQuiz() {
     randQuest();
 }
 
-//Maybe repeats questions?
 function randQuest() {
-
     var randomIndex = questions[Math.floor(Math.random() * questions.length)];
     h1El.textContent = randomIndex.quest;
     btn1.textContent = randomIndex.correct;
     btn2.textContent = randomIndex.wrong1;
     btn3.textContent = randomIndex.wrong2;
     btn4.textContent = randomIndex.wrong3;
-    //For loop to populate button answers, how to randomize?
+
     for (i = 0; i < answerList.length; i++) {
         main.children[1].append(answerList[i]);
     }
 }
 
-//ENTER SCORE PAGE
-//finalScore and contentEl need to be on same line
-//Event delegation to add high scores
 function enterScore() {
     var scoreDiv = document.createElement("div");
     var submitDiv = document.createElement("div");
@@ -106,42 +93,42 @@ function addScore() {
         name: initInput.value,
         final: score
     };
-    console.log(scoreDisplay);
     scoresArray.push(scoreDisplay);
-    console.log(scoresArray);
     scorePage();
-    renderScore();
 }
 
-//SAVING SCORES
-//Stores but need to convert from object 
 var scoresArray = [];
 
-//Renders score list
 function renderScore() {
     for (var i = 0; i < scoresArray.length; i++) {
         var highScoreListEL = document.createElement("li");
         main.children[2].append(highScoreListEL);
-
         highScoreListEL.textContent = scoresArray[i].name + " - " + scoresArray[i].final;
     }
 }
 
-//HIGH SCORE PAGE
-//Event delegation to retrieve scoresArray
 function scorePage() {
-    highScoreLink.textContent = "take-the-test.html";
-    highScoreLink.onclick = mainScreen;
-    
+    startQuizBtn.remove();
+    highScoreLink.textContent = "";
+
     h1El.textContent = "High Scores";
     contentEl.textContent = "";
 
     var highScoreList = document.createElement("ul");
     main.append(highScoreList);
-    startQuizBtn.remove();
+
+    var homeBtn = document.createElement("button");
+    main.append(homeBtn);
+    homeBtn.textContent = "<Take the Quiz>";
+    homeBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
+    homeBtn.onclick = function () {
+        mainScreen();
+        homeBtn.remove();
+        highScoreList.remove();
+    };
+    renderScore();
 }
 
-//EVENT LISTENERS
 startQuizBtn.addEventListener("click", countdown);
 submitBtn.addEventListener("click", addScore);
 highScoreLink.addEventListener("click", scorePage);
@@ -155,7 +142,6 @@ for (i = 0; i < answerList.length; i++) {
 
 btn1.onclick = function () {
     score++;
-    console.log(score);
 }
 
 for (i = 1; i < answerList.length; i++) {
@@ -164,7 +150,6 @@ for (i = 1; i < answerList.length; i++) {
     }
 }
 
-//QUIZ QUESTIONS AND STUFF
 var q1 = {
     quest: "Commonly used data types DO NOT include:",
     correct: "Alerts",
