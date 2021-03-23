@@ -21,12 +21,9 @@ var scoresArray = [];
 function mainScreen() {
   main.append(startQuizBtn);
   h1El.textContent = "Coding Quiz Challenge";
-  contentEl.textContent =
-    "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score by ten seconds!";
+  contentEl.textContent ="Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score by ten seconds!";
   startQuizBtn.textContent = "<Start Quiz>";
-  startQuizBtn.setAttribute(
-    "style",
-    "font-weight: bold; color: rgb(0 169 96);"
+  startQuizBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);"
   );
   highScoreLink.textContent = "view-high-scores.html";
 }
@@ -106,14 +103,8 @@ function enterScore() {
   submitBtn.textContent = "<Submit>";
 
   contentEl.setAttribute("style", "color: rgb(156 220 254);");
-  finalScore.setAttribute(
-    "style",
-    "font-weight: bold; color: rgb(181 206 168);"
-  );
-  initInput.setAttribute(
-    "style",
-    "background-color: rgb(51 51 51); color: white; border: solid; border-color: rgb(51 51 51)"
-  );
+  finalScore.setAttribute("style", "font-weight: bold; color: rgb(181 206 168);");
+  initInput.setAttribute("style", "background-color: rgb(51 51 51); color: white; border: solid; border-color: rgb(51 51 51)");
   submitBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
 
   main.children[1].append(scoreDiv);
