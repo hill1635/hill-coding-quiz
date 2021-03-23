@@ -5,7 +5,7 @@ var highScoreLink = document.querySelector(".highScorePage");
 var timer = document.querySelector(".timer");
 var h1El = document.createElement("h1");
 var contentEl = document.createElement("p");
-var startQuizBtn = document.createElement("button");
+var startBtn = document.querySelector(".startBtn");
 
 // Creates page
 main.append(h1El);
@@ -35,7 +35,7 @@ function countdown() {
 function startQuiz() {
   var listEl = document.createElement("ul");
   contentEl.textContent = "";
-  startQuizBtn.remove();
+  startBtn.remove();
   main.append(listEl);
   randQuest();
 }
@@ -125,7 +125,7 @@ function renderScore() {
 
 // Renders score page
 function scorePage() {
-  startQuizBtn.remove();
+  startBtn.remove();
   highScoreLink.textContent = "";
 
   h1El.textContent = "High Scores";
@@ -183,4 +183,4 @@ var questions = [q1, q2, q3, q4];
 
 // Event listeners
 highScoreLink.addEventListener("click", scorePage);
-startQuizBtn.addEventListener("click", countdown);
+startBtn.addEventListener("click", countdown);
