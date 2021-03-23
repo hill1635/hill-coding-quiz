@@ -11,23 +11,11 @@ var startQuizBtn = document.createElement("button");
 main.append(h1El);
 main.append(contentEl);
 
-// Creates question elements
-var listEl = document.createElement("ul");
-var btn1 = document.createElement("button");
-var btn2 = document.createElement("button");
-var btn3 = document.createElement("button");
-var btn4 = document.createElement("button");
-var answerList = [btn1, btn2, btn3, btn4];
-
-// Final score page elements
-var finalScore = document.createElement("span");
-var initInput = document.createElement("input");
-var submitBtn = document.createElement("button");
-
 // Quiz variables
 var score = 0;
 var startTime = 60;
 var questCount = 0;
+var scoresArray = [];
 
 // Main screen page
 function mainScreen() {
@@ -60,6 +48,7 @@ function countdown() {
 
 // Start button function
 function startQuiz() {
+  var listEl = document.createElement("ul");
   contentEl.textContent = "";
   startQuizBtn.remove();
   main.append(listEl);
@@ -68,7 +57,13 @@ function startQuiz() {
 
 //Random question generator
 function randQuest() {
+  var btn1 = document.createElement("button");
+  var btn2 = document.createElement("button");
+  var btn3 = document.createElement("button");
+  var btn4 = document.createElement("button");
+  var answerList = [btn1, btn2, btn3, btn4];
   var randomIndex = questions[Math.floor(Math.random() * questions.length)];
+
   h1El.textContent = randomIndex.quest;
   btn1.textContent = randomIndex.correct;
   btn2.textContent = randomIndex.wrong1;
@@ -78,10 +73,30 @@ function randQuest() {
   for (i = 0; i < answerList.length; i++) {
     main.children[1].append(answerList[i]);
   }
+
+  for (i = 0; i < answerList.length; i++) {
+    answerList[i].addEventListener("click", function nextQuest() {
+      questCount++;
+      randQuest();
+    });
+  }
+
+  for (i = 1; i < answerList.length; i++) {
+    answerList[i].onclick = function () {
+      startTime = startTime - 10;
+    };
+  }
+
+  btn1.onclick = function () {
+    score++;
+  };
 }
 
 // Enter score page
 function enterScore() {
+  var finalScore = document.createElement("span");
+  var initInput = document.createElement("input");
+  var submitBtn = document.createElement("button");
   var scoreDiv = document.createElement("div");
   var submitDiv = document.createElement("div");
 
@@ -106,6 +121,7 @@ function enterScore() {
   main.children[1].children[0].append(finalScore);
   main.children[1].children[1].append(initInput);
   main.children[1].children[1].append(submitBtn);
+  submitBtn.addEventListener("click", addScore);
 }
 
 // Adds score to high scores
@@ -117,8 +133,6 @@ function addScore() {
   scoresArray.push(scoreDisplay);
   scorePage();
 }
-
-var scoresArray = [];
 
 // Displays high scores
 function renderScore() {
@@ -153,61 +167,41 @@ function scorePage() {
   renderScore();
 }
 
-// Event listeners
-startQuizBtn.addEventListener("click", countdown);
-submitBtn.addEventListener("click", addScore);
-highScoreLink.addEventListener("click", scorePage);
-
-// Adds click function to rendered buttons
-for (i = 0; i < answerList.length; i++) {
-  answerList[i].addEventListener("click", function nextQuest() {
-    questCount++;
-    randQuest();
-  });
-}
-
-// Function for adding score when clicking correct answer
-btn1.onclick = function () {
-  score++;
-};
-
-// Reduces time when wrong answer selected
-for (i = 1; i < answerList.length; i++) {
-  answerList[i].onclick = function () {
-    startTime = startTime - 10;
-  };
-}
 
 // Questions
 var q1 = {
-  quest: "Commonly used data types DO NOT include:",
-  correct: "Alerts",
-  wrong1: "Booleans",
-  wrong2: "Strings",
-  wrong3: "Numbers",
+    quest: "Commonly used data types DO NOT include:",
+    correct: "Alerts",
+    wrong1: "Booleans",
+    wrong2: "Strings",
+    wrong3: "Numbers",
 };
 var q2 = {
-  quest: "The condition in an if/else statement is enclosed within ____.",
-  correct: "Parentheses",
-  wrong1: "Curly Brackets",
-  wrong2: "Parentheses",
-  wrong3: "Square Brackets",
+    quest: "The condition in an if/else statement is enclosed within ____.",
+    correct: "Parentheses",
+    wrong1: "Curly Brackets",
+    wrong2: "Parentheses",
+    wrong3: "Square Brackets",
 };
 
 var q3 = {
-  quest: "Arrays in JavaScript can be used to store ____.",
-  correct: "All of the above",
-  wrong1: "Numbers and strings",
-  wrong2: "Other Arrays",
-  wrong3: "Booleans",
+    quest: "Arrays in JavaScript can be used to store ____.",
+    correct: "All of the above",
+    wrong1: "Numbers and strings",
+    wrong2: "Other Arrays",
+    wrong3: "Booleans",
 };
 
 var q4 = {
-  quest:
+    quest:
     "String values must be enclosed within ____ when being assigned to variables.",
-  correct: "Quotes",
-  wrong1: "Commas",
-  wrong2: "Curly Brackets",
-  wrong3: "Parentheses",
+    correct: "Quotes",
+    wrong1: "Commas",
+    wrong2: "Curly Brackets",
+    wrong3: "Parentheses",
 };
 var questions = [q1, q2, q3, q4];
+
+// Event listeners
+highScoreLink.addEventListener("click", scorePage);
+startQuizBtn.addEventListener("click", countdown);
