@@ -17,18 +17,6 @@ var startTime = 60;
 var questCount = 0;
 var scoresArray = [];
 
-// Main screen page
-function mainScreen() {
-  main.append(startQuizBtn);
-  h1El.textContent = "Coding Quiz Challenge";
-  contentEl.textContent ="Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score by ten seconds!";
-  startQuizBtn.textContent = "<Start Quiz>";
-  startQuizBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);"
-  );
-  highScoreLink.textContent = "view-high-scores.html";
-}
-mainScreen();
-
 // Timer
 function countdown() {
   var timeDecrease = setInterval(function () {
