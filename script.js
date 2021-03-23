@@ -28,7 +28,7 @@ function countdown() {
       enterScore();
     }
   }, 1000);
-  startQuiz();
+  randQuest();
 }
 
 // Start button function
