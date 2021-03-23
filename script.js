@@ -25,8 +25,8 @@ var initInput = document.createElement("input");
 var submitBtn = document.createElement("button");
 
 // Quiz variables
-var startTime = 60;
 var score = 0;
+var startTime = 60;
 var questCount = 0;
 
 // Main screen page
@@ -158,6 +158,7 @@ startQuizBtn.addEventListener("click", countdown);
 submitBtn.addEventListener("click", addScore);
 highScoreLink.addEventListener("click", scorePage);
 
+// Adds click function to rendered buttons
 for (i = 0; i < answerList.length; i++) {
   answerList[i].addEventListener("click", function nextQuest() {
     questCount++;
@@ -165,10 +166,12 @@ for (i = 0; i < answerList.length; i++) {
   });
 }
 
+// Function for adding score when clicking correct answer
 btn1.onclick = function () {
   score++;
 };
 
+// Reduces time when wrong answer selected
 for (i = 1; i < answerList.length; i++) {
   answerList[i].onclick = function () {
     startTime = startTime - 10;
