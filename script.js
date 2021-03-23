@@ -6,6 +6,9 @@ var timer = document.querySelector(".timer");
 var h1El = document.createElement("h1");
 var contentEl = document.createElement("p");
 var startBtn = document.querySelector(".startBtn");
+var main = document.querySelector(".main");
+var quiz = document.querySelector("quiz");
+var submitScore = document.querySelector("submitScore");
 
 // Creates page
 main.append(h1El);
@@ -18,7 +21,7 @@ var questCount = 0;
 var scoresArray = [];
 
 // Timer
-function countdown() {
+function start() {
   var timeDecrease = setInterval(function () {
     startTime--;
     timer.textContent = "timer.js: " + startTime;
@@ -28,15 +31,6 @@ function countdown() {
       enterScore();
     }
   }, 1000);
-  randQuest();
-}
-
-// Start button function
-function startQuiz() {
-  var listEl = document.createElement("ul");
-  contentEl.textContent = "";
-  startBtn.remove();
-  main.append(listEl);
   randQuest();
 }
 
@@ -183,4 +177,4 @@ var questions = [q1, q2, q3, q4];
 
 // Event listeners
 highScoreLink.addEventListener("click", scorePage);
-startBtn.addEventListener("click", countdown);
+startBtn.addEventListener("click", start);
