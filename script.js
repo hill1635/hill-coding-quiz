@@ -52,10 +52,6 @@ function randQuest() {
   answer3.textContent = randomIndex.wrong2;
   answer4.textContent = randomIndex.wrong3;
 
-//   for (i = 0; i < answerList.length; i++) {
-//     main.children[1].append(answerList[i]);
-//   }
-
   for (i = 0; i < answerList.length; i++) {
     answerList[i].addEventListener("click", function nextQuest() {
       questCount++;
