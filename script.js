@@ -7,7 +7,7 @@ var h1El = document.createElement("h1");
 var contentEl = document.createElement("p");
 var startBtn = document.querySelector(".startBtn");
 var main = document.querySelector(".main");
-var quiz = document.querySelector("quiz");
+var quiz = document.querySelector(".quiz");
 var submitScore = document.querySelector("submitScore");
 
 // Creates page
@@ -31,27 +31,30 @@ function start() {
       enterScore();
     }
   }, 1000);
+  main.style.display = "none";
+  quiz.style.display = "";
   randQuest();
 }
 
 //Random question generator
 function randQuest() {
-  var btn1 = document.createElement("button");
-  var btn2 = document.createElement("button");
-  var btn3 = document.createElement("button");
-  var btn4 = document.createElement("button");
-  var answerList = [btn1, btn2, btn3, btn4];
+  var question = document.querySelector(".question");
+  var answer1 = document.querySelector(".answer1");
+  var answer2 = document.querySelector(".answer2");
+  var answer3 = document.querySelector(".answer3");
+  var answer4 = document.querySelector(".answer4");
+  var answerList = [answer1, answer2, answer3, answer4];
   var randomIndex = questions[Math.floor(Math.random() * questions.length)];
 
-  h1El.textContent = randomIndex.quest;
-  btn1.textContent = randomIndex.correct;
-  btn2.textContent = randomIndex.wrong1;
-  btn3.textContent = randomIndex.wrong2;
-  btn4.textContent = randomIndex.wrong3;
+  question.textContent = randomIndex.quest;
+  answer1.textContent = randomIndex.correct;
+  answer2.textContent = randomIndex.wrong1;
+  answer3.textContent = randomIndex.wrong2;
+  answer4.textContent = randomIndex.wrong3;
 
-  for (i = 0; i < answerList.length; i++) {
-    main.children[1].append(answerList[i]);
-  }
+//   for (i = 0; i < answerList.length; i++) {
+//     main.children[1].append(answerList[i]);
+//   }
 
   for (i = 0; i < answerList.length; i++) {
     answerList[i].addEventListener("click", function nextQuest() {
@@ -66,7 +69,7 @@ function randQuest() {
     };
   }
 
-  btn1.onclick = function () {
+  answer1.onclick = function () {
     score++;
   };
 }
