@@ -8,7 +8,7 @@ var contentEl = document.createElement("p");
 var startBtn = document.querySelector(".startBtn");
 var main = document.querySelector(".main");
 var quiz = document.querySelector(".quiz");
-var submitScore = document.querySelector("submitScore");
+var submitScore = document.querySelector(".submitScore");
 
 // Creates page
 main.append(h1El);
@@ -26,7 +26,6 @@ function start() {
     startTime--;
     timer.textContent = "timer.js: " + startTime;
     if (startTime == 0 || questCount == questions.length) {
-      listEl.remove();
       clearInterval(timeDecrease);
       enterScore();
     }
@@ -72,27 +71,8 @@ function randQuest() {
 
 // Enter score page
 function enterScore() {
-  var finalScore = document.createElement("span");
-  var initInput = document.createElement("input");
-  var submitBtn = document.createElement("button");
-  var scoreDiv = document.createElement("div");
-  var submitDiv = document.createElement("div");
-
-  h1El.textContent = "All done!";
-  contentEl.textContent = "yourFinalScore = ";
-  finalScore.textContent = score;
-  submitBtn.textContent = "<Submit>";
-
-  contentEl.setAttribute("style", "color: rgb(156 220 254);");
-  finalScore.setAttribute("style", "font-weight: bold; color: rgb(181 206 168);");
-  initInput.setAttribute("style", "background-color: rgb(51 51 51); color: white; border: solid; border-color: rgb(51 51 51)");
-  submitBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
-
-  main.children[1].append(scoreDiv);
-  main.children[1].append(submitDiv);
-  main.children[1].children[0].append(finalScore);
-  main.children[1].children[1].append(initInput);
-  main.children[1].children[1].append(submitBtn);
+  quiz.style.display = "none";
+  submitScore.style.display = "";
   submitBtn.addEventListener("click", addScore);
 }
 
@@ -139,38 +119,37 @@ function scorePage() {
   renderScore();
 }
 
-
 // Questions
 var q1 = {
-    quest: "Commonly used data types DO NOT include:",
-    correct: "Alerts",
-    wrong1: "Booleans",
-    wrong2: "Strings",
-    wrong3: "Numbers",
+  quest: "Commonly used data types DO NOT include:",
+  correct: "Alerts",
+  wrong1: "Booleans",
+  wrong2: "Strings",
+  wrong3: "Numbers",
 };
 var q2 = {
-    quest: "The condition in an if/else statement is enclosed within ____.",
-    correct: "Parentheses",
-    wrong1: "Curly Brackets",
-    wrong2: "Parentheses",
-    wrong3: "Square Brackets",
+  quest: "The condition in an if/else statement is enclosed within ____.",
+  correct: "Parentheses",
+  wrong1: "Curly Brackets",
+  wrong2: "Parentheses",
+  wrong3: "Square Brackets",
 };
 
 var q3 = {
-    quest: "Arrays in JavaScript can be used to store ____.",
-    correct: "All of the above",
-    wrong1: "Numbers and strings",
-    wrong2: "Other Arrays",
-    wrong3: "Booleans",
+  quest: "Arrays in JavaScript can be used to store ____.",
+  correct: "All of the above",
+  wrong1: "Numbers and strings",
+  wrong2: "Other Arrays",
+  wrong3: "Booleans",
 };
 
 var q4 = {
-    quest:
+  quest:
     "String values must be enclosed within ____ when being assigned to variables.",
-    correct: "Quotes",
-    wrong1: "Commas",
-    wrong2: "Curly Brackets",
-    wrong3: "Parentheses",
+  correct: "Quotes",
+  wrong1: "Commas",
+  wrong2: "Curly Brackets",
+  wrong3: "Parentheses",
 };
 var questions = [q1, q2, q3, q4];
 
