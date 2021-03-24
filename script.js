@@ -9,6 +9,7 @@ var startBtn = document.querySelector(".startBtn");
 var main = document.querySelector(".main");
 var quiz = document.querySelector(".quiz");
 var submitScore = document.querySelector(".submitScore");
+var initInput = document.querySelector(".initials");
 
 // Creates page
 main.append(h1El);
@@ -71,6 +72,9 @@ function randQuest() {
 
 // Enter score page
 function enterScore() {
+  var finalScore = document.querySelector(".score");
+  var submitBtn = document.querySelector(".submitBtn");
+  finalScore.textContent = score;
   quiz.style.display = "none";
   submitScore.style.display = "";
   submitBtn.addEventListener("click", addScore);
