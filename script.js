@@ -106,13 +106,14 @@ function scorePage() {
   submitScore.style.display = "none";
   main.style.display = "none";
   highScores.style.display = "";
-  highScoreLink.textContent = "";
+  highScoreLink.style.display = "none";
   var highScoreList = document.querySelector(".highScores");
   var homeBtn = document.querySelector(".homeBtn");
   homeBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
   homeBtn.onclick = function () {
     highScores.style.display = "none";
     main.style.display = "";
+    highScoreLink.style.display = "";
   };
   renderScore();
 }
