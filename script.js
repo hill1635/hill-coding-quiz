@@ -40,10 +40,10 @@ function start() {
 //Random question generator
 function randQuest() {
   var question = document.querySelector(".question");
-  var answer1 = document.querySelector(".answer1");
-  var answer2 = document.querySelector(".answer2");
-  var answer3 = document.querySelector(".answer3");
-  var answer4 = document.querySelector(".answer4");
+  var answer1 = document.querySelector("#answer1");
+  var answer2 = document.querySelector("#answer2");
+  var answer3 = document.querySelector("#answer3");
+  var answer4 = document.querySelector("#answer4");
   var answerList = [answer1, answer2, answer3, answer4];
   var randomIndex = questions[Math.floor(Math.random() * questions.length)];
 

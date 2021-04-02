@@ -60,7 +60,7 @@ ul {
     list-style-type: none;
 }
 
-li:hover {
+.answer:hover {
     color: rgb(156 220 254);
     text-decoration-line: underline;
     cursor: pointer;
