@@ -104,6 +104,7 @@ function renderScore() {
 // Renders score page
 function scorePage() {
   submitScore.style.display = "none";
+  main.style.display = "none";
   highScores.style.display = "";
   highScoreLink.textContent = "";
   var highScoreList = document.querySelector(".highScores");
