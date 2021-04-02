@@ -10,6 +10,7 @@ var main = document.querySelector(".main");
 var quiz = document.querySelector(".quiz");
 var submitScore = document.querySelector(".submitScore");
 var initInput = document.querySelector(".initials");
+var highScores = document.querySelector(".scorePage");
 
 // Creates page
 main.append(h1El);
@@ -94,7 +95,7 @@ function addScore() {
 function renderScore() {
   for (var i = 0; i < scoresArray.length; i++) {
     var highScoreListEL = document.createElement("li");
-    main.children[2].append(highScoreListEL);
+    highScores.children[1].append(highScoreListEL);
     highScoreListEL.textContent =
       scoresArray[i].name + " - " + scoresArray[i].final;
   }
@@ -102,23 +103,15 @@ function renderScore() {
 
 // Renders score page
 function scorePage() {
-  startBtn.remove();
+  submitScore.style.display = "none";
+  highScores.style.display = "";
   highScoreLink.textContent = "";
-
-  h1El.textContent = "High Scores";
-  contentEl.textContent = "";
-
-  var highScoreList = document.createElement("ul");
-  main.append(highScoreList);
-
-  var homeBtn = document.createElement("button");
-  main.append(homeBtn);
-  homeBtn.textContent = "<Take the Quiz>";
+  var highScoreList = document.querySelector(".highScores");
+  var homeBtn = document.querySelector(".homeBtn");
   homeBtn.setAttribute("style", "font-weight: bold; color: rgb(0 169 96);");
   homeBtn.onclick = function () {
-    mainScreen();
-    homeBtn.remove();
-    highScoreList.remove();
+    highScores.style.display = "none";
+    main.style.display = "";
   };
   renderScore();
 }
